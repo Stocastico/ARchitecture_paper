@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" ml="UnityEditor.XR.MagicLeap" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:IMGUIContainer style="align-items: center; justify-content: space-between; height: 100%; width: auto; flex-wrap: nowrap; max-height: none; min-height: auto; min-width: auto; opacity: 0.8; -unity-background-image-tint-color: rgb(56, 56, 56);">
+        <ui:VisualElement style="width: 100%; height: 20%; flex-direction: row; align-items: flex-start; justify-content: space-between; margin-top: 10px;">
+            <ui:Button text="Back" display-tooltip-when-elided="true" name="Back" style="flex-wrap: nowrap; background-color: rgb(34, 32, 32); width: 30%; height: auto; font-size: 15%; white-space: normal; max-height: none; max-width: none; border-top-width: 1px; color: rgb(255, 255, 255); margin-top: 10px; min-width: initial;" />
+            <ui:TextField picking-mode="Ignore" label="Message Dispatch Rate" value="filler text" text="filler text" name="MessageDispatchRate" multiline="false" style="white-space: normal; align-items: stretch; flex-direction: column; color: rgb(255, 255, 255); margin-top: 1px; width: 60%; height: auto; flex-wrap: wrap; justify-content: space-between; -unity-text-align: upper-center;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="BottomView" style="height: 30%; width: 100%; align-items: flex-end; justify-content: space-around; flex-direction: row;">
+            <ui:Button text="Blue" display-tooltip-when-elided="true" name="Button_Blue" style="height: 20%; width: 30%; font-size: 18%; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; background-color: rgb(34, 32, 32); color: rgb(184, 191, 255);" />
+            <ui:Button text="Red" display-tooltip-when-elided="true" name="Button_Red" style="-unity-text-align: middle-center; width: 30%; height: 20%; font-size: 18%; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; background-color: rgb(34, 32, 32); color: rgb(255, 184, 184);" />
+        </ui:VisualElement>
+    </ui:IMGUIContainer>
+</ui:UXML>

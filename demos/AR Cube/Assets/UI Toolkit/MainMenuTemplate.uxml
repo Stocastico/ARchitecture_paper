@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" ml="UnityEditor.XR.MagicLeap" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement name="Background" style="height: 100%; width: 100%; align-items: center; justify-content: center; flex-wrap: wrap;">
+        <ui:VisualElement style="height: 95%; width: 100%; align-items: center; justify-content: center; flex-wrap: wrap;">
+            <ui:TextField picking-mode="Ignore" label="Agent" value="filler text" text="filler text" name="AgentField" readonly="false" style="align-items: stretch; justify-content: space-between; width: 90%; margin-top: 25px; height: 20%; font-size: 40%; flex-direction: column; flex-wrap: wrap; display: flex; opacity: 1; white-space: normal; -unity-text-align: upper-left; -unity-font-style: normal;" />
+            <ui:TextField picking-mode="Ignore" label="URL" value="filler text" text="filler text" name="URLField" style="width: 90%; margin-top: 25px; height: 20%; align-items: stretch; justify-content: flex-start; font-size: 40%; -unity-font-style: normal; white-space: normal; -unity-text-align: middle-left; flex-wrap: wrap; flex-direction: column;" />
+            <ui:TextField picking-mode="Ignore" label="Room" value="filler text" text="filler text" name="RoomField" style="width: 90%; height: 20%; align-items: stretch; font-size: 40%; justify-content: flex-start; flex-wrap: wrap; margin-top: 25px; flex-direction: column; white-space: normal; -unity-text-align: middle-left;" />
+            <ui:Button text="Connect" display-tooltip-when-elided="true" name="Connect_Button" style="margin-top: 60px; font-size: 15%; height: 8%; width: 50%; margin-left: 3px; padding-left: 30px; padding-right: 30px; padding-top: 0; padding-bottom: 0;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

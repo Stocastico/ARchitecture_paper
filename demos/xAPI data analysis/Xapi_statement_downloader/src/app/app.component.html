@@ -1,0 +1,36 @@
+<div style="text-align:center">
+  <h1>
+    Welcome to statement downloader!
+  </h1>
+  <img width="300" alt="" src="">
+</div>
+<h2> </h2>
+      <div class="" align="center">
+        <mat-form-field floatLabel="auto" appearance = "outline" colour="accent">
+          <mat-label>Organization ID</mat-label>
+          <input matInput placeholder="Ex. 5ef455536659193ba1609c35" id="commandText" [(ngModel)]="cmd" required>
+        </mat-form-field>
+
+        <mat-form-field floatLabel="auto" appearance = "outline" colour="accent">
+          <mat-label>Date from</mat-label>
+          <input matInput [matDatepicker]="picker" placeholder="Ex. 2014-03-09T22:00:00Z" id="selectedPin" [(ngModel)]="selectedPin" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+
+        <mat-form-field floatLabel="auto" appearance = "outline" colour="accent">
+          <mat-label>Date to</mat-label>
+          <input matInput [matDatepicker]="picker_2" placeholder="Ex. 2014-03-09T22:00:00Z" id="selectedValue" [(ngModel)]="selectedValue" required>
+          <mat-datepicker-toggle matSuffix [for]="picker_2"></mat-datepicker-toggle>
+          <mat-datepicker #picker_2></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+<div align="center">
+  <br>
+  <button color="primary" (click)="sendJSON()" mat-raised-button>Send request</button> &nbsp;
+  <button color="primary" (click)="obtainJSON()" mat-raised-button>Obtain data</button> &nbsp;
+  <br>
+  <! --{{sendJSONvar}}-->
+</div>
