@@ -1,2 +1,3 @@
 # ARchitecture_paper
-Code for the AR architecture paper
+
+Data from the teacher survey and quick analysis of the data.
