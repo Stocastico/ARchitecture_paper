@@ -1,0 +1,168 @@
+<!doctype html>
+<head>
+	<script type="text/javascript" src="./cryptojs_v3.1.2.js"></script>
+	<script type="text/javascript" src="./xapiwrapper.min.js"></script>
+	<script>
+	function add_to_blob() 
+	{
+		
+
+
+		  var create = document.getElementById('create'),
+		    textbox = document.getElementById('textbox');
+
+		  create.addEventListener('click', function () {
+		    var link = document.getElementById('downloadlink');
+		    link.href = makeTextFile(textbox.value);
+		    link.style.display = 'block';
+		  }, false);
+	}
+	function sleep(milliseconds) {
+	  const date = Date.now();
+	  let currentDate = null;
+	  do {
+	    currentDate = Date.now();
+	  } while (currentDate - date < milliseconds);
+	}
+	function send_statement()
+	{
+		var textFile = null,
+			makeTextFile = function (text) {
+			var data = new Blob([text], {type: 'text/plain'});
+			// If we are replacing a previously generated file we need to
+			// manually revoke the object URL to avoid memory leaks.
+			if (textFile !== null) {
+				window.URL.revokeObjectURL(textFile);
+			}
+			textFile = window.URL.createObjectURL(data);
+			return textFile;
+		};
+		document.getElementById('button_user').disabled = 'disabled';
+		const sleep_bach = 1
+		const number_bach = 15
+		const total_bach = 100
+		const sleep_ms = sleep_bach*1000
+		let var_storage= []
+		var write_stef = [];
+		for(let i=0;i<total_bach;i++)
+		{
+			console.log(i);
+			let today = new Date();
+			
+			for(let j=0; j<number_bach;j++)
+			{
+				var conf ={"endpoint" : "https://learninglocker.vicomtech.org/data/xAPI/", "auth" : "Basic " + toBase64("d6ccb31e4de71102b503dae39f34f6ea87b3de5b:cf39b760268f1449870ab0ddc7ce71815cdbe325")};
+				ADL.XAPIWrapper.changeConfig(conf);
+				if (j==0)
+				{
+					var statement = 
+					{
+						"actor": 
+						{
+							"mbox": "mailto:"+ document.getElementById("userInput").value+"@example.com",
+							"name": document.getElementById("userInput").value,
+							"objectType": "Agent"
+						},
+						"verb": 
+						{
+							"id": "http://example.com/xapi/Log In",
+							"display": {"en-US": "Log In"}
+						},
+						"object": 
+						{
+							"id": "http://example.com/button_example",
+							"definition": 
+							{
+								"name": {"en-US": "_bach" + i + "_statement" + j},
+								"description": {"en-US": "_bach" + i + "_statement" + j}
+							},
+							"objectType": "Activity"
+						},
+					}
+					today = new Date();
+					var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+":" +today.getMilliseconds();
+					write_stef.push(time);
+					var result = ADL.XAPIWrapper.sendStatement(statement);
+				}
+				else if (j==number_bach-1)
+				{
+					var statement = 
+					{
+						"actor": 
+						{
+							"mbox": "mailto:"+ document.getElementById("userInput").value+"@example.com",
+							"name": document.getElementById("userInput").value,
+							"objectType": "Agent"
+						},
+						"verb": 
+						{
+							"id": "http://example.com/xapi/Log Out",
+							"display": {"en-US": "Log Out"}
+						},
+						"object": 
+						{
+							"id": "http://example.com/button_example",
+							"definition": 
+							{
+								"name": {"en-US": "_bach" + i + "_statement" + j},
+								"description": {"en-US": "_bach" + i + "_statement" + j}
+							},
+							"objectType": "Activity"
+						},
+					}
+					today = new Date();
+					var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+":" +today.getMilliseconds();
+					write_stef.push(time);
+					var result = ADL.XAPIWrapper.sendStatement(statement);
+				}
+				else
+				{
+					var statement = 
+					{
+						"actor": 
+						{
+							"mbox": "mailto:"+ document.getElementById("userInput").value+"@example.com",
+							"name": document.getElementById("userInput").value,
+							"objectType": "Agent"
+						},
+						"verb": 
+						{
+							"id": "http://example.com/xapi/Prueba",
+							"display": {"en-US": "Prueba"}
+						},
+						"object": 
+						{
+							"id": "http://example.com/button_example",
+							"definition": 
+							{
+								"name": {"en-US": "_bach" + i + "_statement" + j},
+								"description": {"en-US": "_bach" + i + "_statement" + j}
+							},
+							"objectType": "Activity"
+						},
+					}
+					today = new Date();
+					var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+":" +today.getMilliseconds();
+					write_stef.push(time);
+					var result = ADL.XAPIWrapper.sendStatement(statement);
+				}
+			}
+		}
+		console.log("finish")
+		document.getElementById('button_user').disabled = 'Enabled';
+		var link = document.getElementById('downloadlink');
+		link.href = makeTextFile(write_stef);
+		link.style.display = 'block';
+	}
+	</script>
+</head>
+<body>
+	<h1> Prueba 1, 10 s, 15 statements, 1 hour</h1>
+	<form id="form" onsubmit="return false;">
+		Actor name: <input style="width:30%;" type="text" id="userInput" /><br>
+	</form>
+	<br>
+	<input type="button" value="Send Statements" id = "button_user" onclick="send_statement()"/>
+	<a download="info.txt" id="downloadlink" style="display: none">Download</a>
+</body>
+</html>

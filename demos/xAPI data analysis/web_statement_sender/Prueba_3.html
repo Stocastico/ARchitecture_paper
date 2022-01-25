@@ -1,0 +1,238 @@
+<!doctype html>
+<head>
+	<script type="text/javascript" src="./cryptojs_v3.1.2.js"></script>
+	<script type="text/javascript" src="./xapiwrapper.min.js"></script>
+	<script>
+	function randn_bm() {
+		let u = 0, v = 0;
+		while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
+		while(v === 0) v = Math.random();
+		let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
+		num = num / 10.0 + 0.5; // Translate to 0 -> 1
+		if (num > 1 || num < 0) return randn_bm() // resample between 0 and 1
+		return num
+	}
+	function sleep(milliseconds) {
+	  const date = Date.now();
+	  let currentDate = null;
+	  do {
+	    currentDate = Date.now();
+	  } while (currentDate - date < milliseconds);
+	}
+	function send_statement()
+	{
+		document.getElementById('button_user').disabled = 'disabled';
+		const sleep_bach = 2
+		const number_bach = 30
+		const total_bach = 3600
+		pilot = 1
+		const sleep_ms = sleep_bach*1000
+		const Verbs_1 = ["Exit", "Exit", "Exit", "launched", "selected", "interacted", "completed", "answered", "consumed", "consumed", "consumed"]
+		const Verbs_2 = ["Selected", "Selected", "Selected", "Completed", "Replayed", "Left", "Open", "Close", "Enabled", "Enabled", "Enabled"]
+		for(let i=0;i<total_bach;i++)
+		{
+			let hours = Math.floor(Math.random() * 20);
+			let minutes = Math.floor(Math.random() * 60);
+			let variable = Math.floor(Math.random() * (3*60))+60;
+			let hours_variable = Math.floor(variable/60);
+			let mins_variable = variable - (60*hours_variable);
+			let hours_end = hours + hours_variable;
+			let mins_end = minutes + mins_variable;
+			let difference = Math.floor(Math.random() * (variable/number_bach));
+			let hours_difference = Math.floor(difference/60);
+			let mins_difference = difference - (60*hours_difference);
+			let hours_current = hours + hours_difference;
+			let mins_current = minutes + mins_difference;
+			let hours_str = ""
+			let minutes_str = ""
+			let hours_end_str = ""
+			let mins_end_str = ""
+			let hours_current_str = ""
+			let mins_current_str = ""
+			
+			for(let j=0; j<number_bach;j++)
+			{
+				const id = Math.floor(randn_bm()* 9);
+				//const id = Math.floor(Math.random() * 7);
+				if (pilot ==1)
+				{
+					var conf ={"endpoint" : "https://learninglocker.vicomtech.org/data/xAPI/", "auth" : "Basic " + toBase64("5a392d86f124960411c07efec851aa5927ce6849:c2cd7229165f684d9f2c5ba118a1bd5493ec1d1d")};
+				}
+				else if (pilot ==2)
+				{
+					var conf = {"endpoint" : "https://learninglocker.vicomtech.org/data/xAPI/", "auth" : "Basic " + toBase64("65f5cb0e17238d729387d652b554f855bccbb5e1:a84e81cbe330f601543ba4f062036bea9a973d7e")};
+				}
+				ADL.XAPIWrapper.changeConfig(conf);
+				if (j==0)
+				{
+					if (hours<10)
+					{
+						hours_str= "0" + hours;
+					}
+					else
+					{
+						hours_str = hours;
+					}
+					if (minutes<10)
+					{
+						minutes_str= "0" + minutes;
+					}
+					else
+					{
+						minutes_str = minutes;
+					}
+					var statement = 
+					{
+						"actor": 
+						{
+							"mbox": "mailto:"+ document.getElementById("userInput").value+"@example.com",
+							"name": document.getElementById("userInput").value,
+							"objectType": "Agent"
+						},
+						"verb": 
+						{
+							"id": "http://example.com/xapi/Log In",
+							"display": {"en-US": "Log In"}
+						},
+						"object": 
+						{
+							"id": "http://example.com/button_example",
+							"definition": 
+							{
+								"name": {"en-US": "Pilot" + pilot + "_bach" + i + "_statement" + j+ "_id"+ id},
+								"description": {"en-US": "Pilot" + pilot + "_bach" + i + "_statement" + j+ "_id"+ id}
+							},
+							"objectType": "Activity"
+						},
+						"timestamp": "2021-12-02T"+ hours_str +":"+minutes_str +":02.878Z"
+					}
+					var result = ADL.XAPIWrapper.sendStatement(statement);
+				}
+				else if (j==number_bach-1)
+				{
+					if(mins_end>59)
+					{
+						mins_end = mins_end -60;
+						hours_end = hours_end +1;
+					}
+					if (hours_end<10)
+					{
+						hours_end_str= "0" + hours_end;
+					}
+					else
+					{
+						hours_end_str = hours_end;
+					}
+					if (mins_end<10)
+					{
+						mins_end_str= "0" + mins_end;
+					}
+					else
+					{
+						mins_end_str = mins_end;
+					}
+					var statement = 
+					{
+						"actor": 
+						{
+							"mbox": "mailto:"+ document.getElementById("userInput").value+"@example.com",
+							"name": document.getElementById("userInput").value,
+							"objectType": "Agent"
+						},
+						"verb": 
+						{
+							"id": "http://example.com/xapi/Log Out",
+							"display": {"en-US": "Log Out"}
+						},
+						"object": 
+						{
+							"id": "http://example.com/button_example",
+							"definition": 
+							{
+								"name": {"en-US": "Pilot" + pilot + "_bach" + i + "_statement" + j+ "_id"+ id},
+								"description": {"en-US": "Pilot" + pilot + "_bach" + i + "_statement" + j+ "_id"+ id}
+							},
+							"objectType": "Activity"
+						},
+						"timestamp": "2021-12-02T"+ hours_end_str +":"+mins_end_str +":02.878Z"
+					}
+					var result = ADL.XAPIWrapper.sendStatement(statement);
+				}
+				else
+				{
+					if (hours_current<10)
+					{
+						hours_current_str= "0" + hours_current;
+					}
+					else
+					{
+						hours_current_str = hours_current;
+					}
+					if (mins_current<10)
+					{
+						mins_current_str= "0" + mins_current;
+					}
+					else
+					{
+						mins_current_str = mins_current;
+					}
+					var statement = 
+					{
+						"actor": 
+						{
+							"mbox": "mailto:"+ document.getElementById("userInput").value+"@example.com",
+							"name": document.getElementById("userInput").value,
+							"objectType": "Agent"
+						},
+						"verb": 
+						{
+							"id": "http://example.com/xapi/"+ Verbs_1[id],
+							"display": {"en-US": Verbs_1[id]}
+						},
+						"object": 
+						{
+							"id": "http://example.com/button_example",
+							"definition": 
+							{
+								"name": {"en-US": "Pilot" + pilot + "_bach" + i + "_statement" + j+ "_id"+ id},
+								"description": {"en-US": "Pilot" + pilot + "_bach" + i + "_statement" + j+ "_id"+ id}
+							},
+							"objectType": "Activity"
+						},
+						"timestamp": "2021-12-02T"+ hours_current_str +":"+mins_current_str +":02.878Z"
+					}
+					difference = Math.floor(Math.random() * (variable/number_bach));
+					hours_difference = Math.floor(difference/60);
+					mins_difference = difference - (60*hours_difference)+1;
+					hours_current = hours_current + hours_difference;
+					mins_current = mins_current + mins_difference;
+					if(mins_current>59)
+					{
+						mins_current = mins_current -60;
+						hours_current = hours_current +1;
+					}
+					var result = ADL.XAPIWrapper.sendStatement(statement);
+				}
+			}
+			if (pilot ==1)
+			{
+				pilot = 2;
+			}
+			else if (pilot ==2)
+			{
+				pilot = 1;
+			}
+		  	sleep(sleep_ms/2)
+		}
+	}
+	</script>
+</head>
+<body>
+	<h1> Prueba 3, 2 s, 30 statements, 1 hour</h1>
+	<form id="form" onsubmit="return false;">
+		Actor name: <input style="width:30%;" type="text" id="userInput" /><br>
+	</form>
+	<br>
+	<input type="button" value="Send Statements" id = "button_user" onclick="send_statement()"/>
+</body>
+</html>
