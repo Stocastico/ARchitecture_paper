@@ -130,3 +130,6 @@ dmypy.json
 
 # Node.js
 node_modules/
+
+# Angular build cache
+.angular/
