@@ -56,11 +56,11 @@
 				//const id = Math.floor(Math.random() * 7);
 				if (pilot ==1)
 				{
-					var conf ={"endpoint" : "https://learninglocker.vicomtech.org/data/xAPI/", "auth" : "Basic " + toBase64("5a392d86f124960411c07efec851aa5927ce6849:c2cd7229165f684d9f2c5ba118a1bd5493ec1d1d")};
+					var conf ={"endpoint" : "https://learninglocker.vicomtech.org/data/xAPI/", "auth" : "Basic " + toBase64("YOUR_PILOT1_CLIENT_KEY:YOUR_PILOT1_CLIENT_SECRET")};
 				}
 				else if (pilot ==2)
 				{
-					var conf = {"endpoint" : "https://learninglocker.vicomtech.org/data/xAPI/", "auth" : "Basic " + toBase64("65f5cb0e17238d729387d652b554f855bccbb5e1:a84e81cbe330f601543ba4f062036bea9a973d7e")};
+					var conf = {"endpoint" : "https://learninglocker.vicomtech.org/data/xAPI/", "auth" : "Basic " + toBase64("YOUR_PILOT2_CLIENT_KEY:YOUR_PILOT2_CLIENT_SECRET")};
 				}
 				ADL.XAPIWrapper.changeConfig(conf);
 				if (j==0)
